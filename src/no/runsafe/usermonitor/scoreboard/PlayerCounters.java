@@ -27,14 +27,12 @@ public class PlayerCounters extends Worker<String, String>
 		Plugin monitor,
 		IScheduler scheduler,
 		RunsafeServer server,
-		IConfiguration config,
 		IOutput console
 	)
 	{
 		super(scheduler);
 		this.server = server;
 		this.scoreBoard = new File(String.format("plugins/%s/scoreboard.txt", monitor.getName()));
-		this.config = config;
 		this.console = console;
 	}
 
@@ -76,7 +74,7 @@ public class PlayerCounters extends Worker<String, String>
 	}
 
 	@Override
-	public void OnConfigurationChanged()
+	public void OnConfigurationChanged(IConfiguration config)
 	{
 		setInterval(config.getConfigValueAsInt("scoreboard.update.delay"));
 	}
@@ -115,6 +113,5 @@ public class PlayerCounters extends Worker<String, String>
 	private final HashMap<String, Boolean> playerIsOnline = new HashMap<String, Boolean>();
 	private final RunsafeServer server;
 	private final File scoreBoard;
-	private final IConfiguration config;
 	private final IOutput console;
 }
