@@ -88,7 +88,7 @@ public class PlayerCounters extends Worker<String, String>
 			{
 				console.outputColoredToConsole(
 					String.format(
-						"%created new scoreboard %s.%s",
+						"%screated new scoreboard %s.%s",
 						ChatColor.GREEN,
 						scoreBoard.getAbsolutePath(),
 						ChatColor.RESET
