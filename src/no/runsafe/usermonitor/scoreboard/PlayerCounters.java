@@ -100,7 +100,10 @@ public class PlayerCounters extends Worker<String, String>
 			for (Map.Entry<String, Boolean> playerOnline : playerIsOnline.entrySet())
 			{
 				if (playerOnline.getValue())
+				{
+					RunsafeServer.Instance.getPlayer(playerOnline.getKey());
 					output.write(String.format("%s\n", playerOnline.getKey()));
+				}
 			}
 			output.close();
 		}
