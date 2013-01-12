@@ -1,5 +1,5 @@
 name: UserMonitor
 main: no.runsafe.usermonitor.Plugin
-version: 1.0
+version: 1.0.@BUILD@
 author: mortenn
 description: Keeps count of users
