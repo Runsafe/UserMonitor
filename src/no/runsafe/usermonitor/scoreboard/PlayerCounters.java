@@ -13,7 +13,6 @@ import no.runsafe.framework.server.player.RunsafePlayer;
 import no.runsafe.framework.timer.IScheduler;
 import no.runsafe.framework.timer.Worker;
 import no.runsafe.usermonitor.Plugin;
-import org.bukkit.ChatColor;
 
 import java.io.*;
 import java.util.HashMap;
@@ -86,14 +85,10 @@ public class PlayerCounters extends Worker<String, String>
 		{
 			if (scoreBoard.createNewFile())
 			{
-				console.outputColoredToConsole(
-					String.format(
-						"%screated new scoreboard %s.%s",
-						ChatColor.GREEN,
-						scoreBoard.getAbsolutePath(),
-						ChatColor.RESET
-					),
-					Level.INFO
+				console.writeColoured(
+					"&acreated new scoreboard %s.&r",
+					Level.INFO,
+					scoreBoard.getAbsolutePath()
 				);
 			}
 			Writer output = new BufferedWriter(new FileWriter(scoreBoard));
