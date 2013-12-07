@@ -7,10 +7,10 @@ import no.runsafe.framework.api.event.player.IPlayerJoinEvent;
 import no.runsafe.framework.api.event.player.IPlayerQuitEvent;
 import no.runsafe.framework.api.event.plugin.IConfigurationChanged;
 import no.runsafe.framework.api.event.plugin.IPluginEnabled;
+import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.RunsafeServer;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerJoinEvent;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerQuitEvent;
-import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.framework.timer.Worker;
 import no.runsafe.usermonitor.Plugin;
 
@@ -62,7 +62,7 @@ public class PlayerCounters extends Worker<String, String>
 			for (String key : playerIsOnline.keySet())
 				playerIsOnline.put(key, false);
 
-			for (RunsafePlayer online : server.getOnlinePlayers())
+			for (IPlayer online : server.getOnlinePlayers())
 				playerIsOnline.put(online.getName(), true);
 		}
 		else if (event.equals("join"))
