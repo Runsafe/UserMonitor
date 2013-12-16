@@ -7,7 +7,7 @@ import no.runsafe.usermonitor.scoreboard.PlayerCounters;
 public class Plugin extends RunsafeConfigurablePlugin
 {
 	@Override
-	protected void PluginSetup()
+	protected void pluginSetup()
 	{
 		addComponent(Events.class);
 		addComponent(PlayerCounters.class);
