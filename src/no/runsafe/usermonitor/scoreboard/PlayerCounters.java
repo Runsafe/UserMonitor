@@ -9,6 +9,7 @@ import no.runsafe.framework.api.event.plugin.IConfigurationChanged;
 import no.runsafe.framework.api.event.plugin.IPluginEnabled;
 import no.runsafe.framework.api.log.IConsole;
 import no.runsafe.framework.api.player.IPlayer;
+import no.runsafe.framework.internal.log.Console;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerJoinEvent;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerQuitEvent;
 import no.runsafe.framework.timer.Worker;
@@ -57,19 +58,21 @@ public class PlayerCounters extends Worker<String, String>
 	@Override
 	public void process(String player, String event)
 	{
-		if (event.equals("startup"))
+		switch (event)
 		{
-			for (String key : playerIsOnline.keySet())
-				playerIsOnline.put(key, false);
+			case "startup":
+				playerIsOnline.replaceAll((k, v) -> false);
 
-			for (IPlayer online : server.getOnlinePlayers())
-				playerIsOnline.put(online.getName(), true);
+				for (IPlayer online : server.getOnlinePlayers())
+					playerIsOnline.put(online.getName(), true);
+				break;
+			case "join":
+				playerIsOnline.put(player, true);
+				break;
+			case "quit":
+				playerIsOnline.put(player, false);
+				break;
 		}
-		else if (event.equals("join"))
-			playerIsOnline.put(player, true);
-
-		else if (event.equals("quit"))
-			playerIsOnline.put(player, false);
 	}
 
 	@Override
@@ -104,11 +107,11 @@ public class PlayerCounters extends Worker<String, String>
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			Console.Global().logException(e);
 		}
 	}
 
-	private final HashMap<String, Boolean> playerIsOnline = new HashMap<String, Boolean>();
+	private final HashMap<String, Boolean> playerIsOnline = new HashMap<>();
 	private final IServer server;
 	private final File scoreBoard;
 	private final IConsole console;
